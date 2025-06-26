@@ -8,3 +8,16 @@ It contains:
 		- functions in GAP are in file "transfer_functions_GAP.txt".
 	- List of all graphs and tables of interest used during our computations are in file "auxiliary_variables.txt"
 	- Trie class (in Python) used during the computations in "trie.py"
+	- Collected lists of SCGs, grouped into rows by their properties:
+ 		- Aut(SCG)
+   		- Orbity(Aut(SCG))
+     		- Structure of Aut(SCG)
+     		- Aut(BD)
+   		- Orbity(BD) on points
+   		- Orbity(BD) on blocks 
+     		- Structure of Aut(BD)
+     		- WAut(SCG)
+   		- Orbity(WAut(SCG)) on points
+   		- Orbity(WAut(SCG)) on blocks 
+     		- Structure of WAut(SCG)
+       		- number of SCG with preferred pairs / number of all SCG with given properties 
