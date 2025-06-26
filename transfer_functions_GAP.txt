@@ -1,0 +1,238 @@
+permutacne_mat := [
+					[[[1]]],
+					[[[0, 1], [1, 0]], 
+					 [[1, 0], [0, 1]], 
+					 [[0, 1], [1, 0]]],
+					[[[0, 1, 1], [1, 0, 1], [1, 1, 0]], 
+					 [[1, 0, 0], [0, 1, 0], [0, 0, 1]], 
+					 [[1, 0, 0], [0, 0, 1], [0, 1, 0]],
+					 [[0, 1, 0], [1, 0, 0], [0, 0, 1]], 
+					 [[0, 1, 0], [0, 0, 1], [1, 0, 0]], 
+					 [[0, 0, 1], [1, 0, 0], [0, 1, 0]],
+					 [[0, 0, 1], [0, 1, 0], [1, 0, 0]]],
+					[[[0, 1, 1, 1], [1, 0, 1, 1], [1, 1, 0, 1], [1, 1, 1, 0]],
+					 [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]],
+					 [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]],
+					 [[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]],
+					 [[1, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 1, 0, 0]],
+					 [[1, 0, 0, 0], [0, 0, 0, 1], [0, 1, 0, 0], [0, 0, 1, 0]],
+					 [[1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0], [0, 1, 0, 0]],
+					 [[0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]],
+					 [[0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]],
+					 [[0, 1, 0, 0], [0, 0, 1, 0], [1, 0, 0, 0], [0, 0, 0, 1]],
+					 [[0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [1, 0, 0, 0]],
+					 [[0, 1, 0, 0], [0, 0, 0, 1], [1, 0, 0, 0], [0, 0, 1, 0]],
+					 [[0, 1, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0], [1, 0, 0, 0]],
+					 [[0, 0, 1, 0], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 1]],
+					 [[0, 0, 1, 0], [1, 0, 0, 0], [0, 0, 0, 1], [0, 1, 0, 0]],
+					 [[0, 0, 1, 0], [0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1]],
+					 [[0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1], [1, 0, 0, 0]],
+					 [[0, 0, 1, 0], [0, 0, 0, 1], [1, 0, 0, 0], [0, 1, 0, 0]],
+					 [[0, 0, 1, 0], [0, 0, 0, 1], [0, 1, 0, 0], [1, 0, 0, 0]],
+					 [[0, 0, 0, 1], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0]],
+					 [[0, 0, 0, 1], [1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0]],
+					 [[0, 0, 0, 1], [0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 1, 0]],
+					 [[0, 0, 0, 1], [0, 1, 0, 0], [0, 0, 1, 0], [1, 0, 0, 0]],
+					 [[0, 0, 0, 1], [0, 0, 1, 0], [1, 0, 0, 0], [0, 1, 0, 0]],
+					 [[0, 0, 0, 1], [0, 0, 1, 0], [0, 1, 0, 0], [1, 0, 0, 0]]]];
+
+permutacne_num := [[1], [6, 9, 6], 
+				  [238, 273, 266, 161, 140, 98, 84],
+                  [31710,
+                   33825, 33810, 33345, 33300, 33090, 33060,
+                   18465, 18450, 17025, 16920, 16770, 16680,
+                   10305, 10260,  9345,  9240,  8580,  8520,
+                    6210,  6180,  5250,  5160,  4740,  4680]];
+
+transpose := [0, 1, 2, 3, 5, 4, 6, 7, 8, 13, 19, 14, 20, 9, 11, 15, 21, 17, 23, 10, 12, 16, 22, 18, 24];
+
+fn := function(x,y)
+	if QuoInt(x-1,4)=QuoInt(y-1,4) then
+		if x=y then
+			return 0;
+		else return 1;
+		fi;
+	else return 0;
+	fi;
+end;
+
+
+# functions transforming binary number representation to adjacncy matrix representation and back
+
+decode_bin_num_to_adj_mat_srg := function(poc_klik, vel_klik, m)
+	local k, l, M, c, n;
+	n := m;
+    M := NullMat(poc_klik*vel_klik,poc_klik*vel_klik);
+    for k in [(poc_klik-1)*vel_klik, (poc_klik-2)*vel_klik .. 0] do 
+		M{[ k+1 .. k+vel_klik ]}{[ k+1 .. k+vel_klik ]} := permutacne_mat[4][1];
+        for l in [(poc_klik-1)*vel_klik, (poc_klik-2)*vel_klik .. k + vel_klik] do
+			c := RemInt(n,65536);
+			n := QuoInt(n,65536);
+            M{[ k+1 .. k+vel_klik ]}{[ l + 1 .. l+vel_klik ]} := permutacne_mat[4][Position(permutacne_num[4],c)];
+            M{[ l+1 .. l+vel_klik ]}{[ k + 1 .. k+vel_klik ]} := permutacne_mat[4][transpose[Position(permutacne_num[4],c)]+1];
+		od;
+	od;
+    return M;
+end;
+
+decode_bin_num_to_adj_mat_drg := function(poc_klik, vel_klik, m)
+	local k, l, M, c, n;
+	n := m;
+    M := NullMat(poc_klik*vel_klik,poc_klik*vel_klik);
+    for k in [(poc_klik-1)*vel_klik, (poc_klik-2)*vel_klik .. 0] do 
+        for l in [(poc_klik-1)*vel_klik, (poc_klik-2)*vel_klik .. k + vel_klik] do
+			c := RemInt(n,65536);
+			n := QuoInt(n,65536);
+            M{[ k+1 .. k+vel_klik ]}{[ l + 1 .. l+vel_klik ]} := permutacne_mat[4][Position(permutacne_num[4],c)];
+            M{[ l+1 .. l+vel_klik ]}{[ k + 1 .. k+vel_klik ]} := permutacne_mat[4][transpose[Position(permutacne_num[4],c)]+1];
+		od;
+	od;
+    return M;
+end;
+
+adj_mat_block_to_per_vol_num := function(c, M, vel_klik)
+	local i,j,m;
+	m := 0;
+	for j in [1..vel_klik] do 
+		for i in [1..vel_klik] do
+			m := m*c + M[j][i];
+		od;
+	od;
+	return m;
+end;
+
+decode_adj_mat_to_bin_num := function(poc_klik, vel_klik, M)
+	local i,j,c,m;
+	m := 0;
+	for i in [1..poc_klik] do 
+		for j in [i+1..poc_klik] do
+		c := adj_mat_block_to_per_vol_num(2,M{[(i-1)*(vel_klik)+1..(i)*(vel_klik)]}{[(j-1)*(vel_klik)+1..(j)*(vel_klik)]},vel_klik);
+		m := m*(2^16) + c;
+		od;
+	od;
+	return m;
+end;
+
+# functions transforming base24 number representation to permutation voltages representation and back
+
+decode_base24_num_to_per_volt_mat := function(poc_klik, vel_klik, m)
+	local k, l, M, c, n;
+	n := m;
+    M := NullMat(poc_klik,poc_klik);
+    for k in [poc_klik, poc_klik-1 .. 1] do 
+		for l in [poc_klik, poc_klik-1 .. k+1] do
+			c := RemInt(n,24)+1;
+			n := QuoInt(n,24);
+            M[k][l] := c;
+            M[l][k] := transpose[c+1];
+		od;
+	od;
+    return M;
+end;
+
+decode_per_vol_mat_to_base24_num := function(poc_klik, vel_klik, M)
+	local i,j,c,m;
+	m := 0;
+	for i in [1..poc_klik] do 
+		for j in [i+1..poc_klik] do
+		c := M[i][j]-1;
+		m := m*24 + c;
+		od;
+	od;
+	return m;
+end;
+
+# functions transforming binary number representation to base24 number representation and back
+
+decode_bin_num_to_base24_num := function(n, poc_klik)
+	local k,l,p,L,c,d;
+	p := 0;
+	L := [];
+	for k in [1..poc_klik] do
+        for l in [k+1..poc_klik] do
+			c := RemInt(n,65536);
+			n := QuoInt(n,65536);
+			d := Position(permutacne_num[4],c);
+			Add(L,d-2);
+		od;
+	od;
+	for k in [Size(L),Size(L)-1..1] do
+		p := p*24 + L[k];
+	od;
+	return p;
+end;
+
+decode_base24_num_to_bin_num := function(b, poc_klik)
+	local i,j,p,L,c;
+	p := 0;
+	L := [];
+	for i in [1..poc_klik] do
+		for j in [i+1..poc_klik] do
+			c := RemInt(b,24);
+			b := QuoInt(b,24);
+			Add(L,c);
+		od;
+	od;
+	for i in [Size(L), Size(L)-1..1] do
+		p := p*65536 + permutacne_num[4][L[i]+2];
+	od;
+	return p;
+end;
+
+# other transforming functions
+
+decode_bin_num_to_per_vol_mat := function(poc_klik, vel_klik, m)
+	local k, l, M, c, n, d;
+	n := m;
+    M := NullMat(poc_klik,poc_klik);
+    for k in [poc_klik-1, poc_klik-2..1] do 
+        for l in [poc_klik, poc_klik-1 .. k+1] do
+			c := RemInt(n,65536);
+			n := QuoInt(n,65536);
+			d := Position(permutacne_num[4],c);
+			M[k][l] := d-1;
+			M[l][k] := transpose[d];
+		od;
+	od;
+	return M;
+end;
+
+decode_base24_num_to_adj_mat := function(poc_klik, vel_klik, n)
+	local k, l, M, c, d;
+    M := NullMat(poc_klik*vel_klik,poc_klik*vel_klik);
+    for k in [poc_klik-1, poc_klik-2..0] do 
+        for l in [poc_klik-1, poc_klik-2 .. k+1] do
+			c := RemInt(n,24);
+			n := QuoInt(n,24);
+			M{[ k*vel_klik+1 .. (k+1)*vel_klik ]}{[ l*vel_klik+1 .. (l+1)*vel_klik ]} := permutacne_mat[4][c+2];
+            M{[ l*vel_klik+1 .. (l+1)*vel_klik ]}{[ k*vel_klik+1 .. (k+1)*vel_klik ]} := permutacne_mat[4][transpose[c+2]+1];
+		od;
+	od;
+	return M;
+end;
+
+decode_per_vol_mat_to_bin_num := function(poc_klik, vel_klik, M)
+	local i,j,c,m;
+	m := 0;
+	for i in [1..poc_klik] do 
+		for j in [i+1..poc_klik] do
+		c := permutacne_num[4][M[i][j]+1];
+		m := m*65536 + c;
+		od;
+	od;
+	return m;
+end;
+
+decode_adj_mat_to_base24_num := function(poc_klik, vel_klik, M)
+	local i,j,c,m;
+	m := 0;
+	for i in [1..poc_klik] do 
+		for j in [i+1..poc_klik] do
+		c := adj_mat_block_to_per_vol_num(2,M{[(i-1)*(vel_klik)+1..(i)*(vel_klik)]}{[(j-1)*(vel_klik)+1..(j)*(vel_klik)]},vel_klik);
+		Print(c, ", ");
+		m := m*24 + Position(permutacne_num[4],c)-2;
+		od;
+	od;
+	return m;
+end;
+
