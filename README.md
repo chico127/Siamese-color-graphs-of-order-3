@@ -7,3 +7,4 @@ It contains:
 	- Functions to compute adjacency matrices and permutation voltages representations from the number representation and vice versa
 		- functions in GAP are in file "transfer_functions_GAP.txt".
 	- List of all graphs and tables of interest used during our computations are in file "auxiliary_variables.txt"
+	- Trie class (in Python) used during the computations in "trie.py"
